@@ -1,0 +1,764 @@
+<!-- START OF FILE index.html --- -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esports Arena | Premium BGMI Client Gateway</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Rajdhani:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="user.css">
+
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+  rajdhani: ['Rajdhani', 'sans-serif'],
+  sans: ['Poppins', 'sans-serif'],
+  grotesk: ['Space Grotesk', 'sans-serif'],
+},
+colors: {
+  gold: {
+    light: '#f1e2b3',
+    DEFAULT: '#d4af37',
+    dark: '#b8921e',
+    glow: 'rgba(212, 175, 55, 0.35)',
+  },
+  amethyst: {
+    light: '#c084fc',
+    DEFAULT: '#8b5cf6',
+    dark: '#6d28d9',
+    glow: 'rgba(139, 92, 246, 0.35)',
+  },
+  cyber: {
+    obsidian: '#05020c',
+    velvet: '#0c071a',
+    card: 'rgba(12, 7, 26, 0.65)',
+    border: 'rgba(212, 175, 55, 0.12)',
+    pink: '#ff2d75'
+  }
+}
+}
+}
+}
+</script>
+</head>
+<body class="font-sans min-h-screen pb-24 custom-scrollbar">
+
+<div id="toast-container" class="fixed top-6 right-6 z-50 flex flex-col gap-4 pointer-events-none"></div>
+
+<div id="auth-container" class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto bg-[#050505]">
+
+<div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+<div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#8A2BE2]/20 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#FFC107]/10 rounded-full blur-[100px]"></div>
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#050505_100%)] opacity-80"></div>
+</div>
+
+<div class="glass-auth relative z-10 w-full max-w-md p-8 sm:p-10 rounded-[32px] flex flex-col items-center my-8">
+
+<div class="flex flex-col items-center justify-center mb-6 w-full">
+<div class="w-16 h-16 bg-[#12001F] border border-[#FFC107]/50 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(255,193,7,0.3)] mb-3 relative overflow-hidden group">
+  <div class="absolute inset-0 bg-[#FFC107]/10 group-hover:bg-[#FFC107]/20 transition-all"></div>
+  <i class="fa-solid fa-gamepad text-3xl text-[#FFC107] drop-shadow-[0_0_8px_rgba(255,193,7,0.8)] relative z-10"></i>
+</div>
+<h1 class="text-2xl font-rajdhani font-extrabold uppercase tracking-widest bg-gradient-to-r from-[#FFC107] via-[#fff3cc] to-[#FFC107] text-transparent bg-clip-text drop-shadow-[0_0_15px_rgba(255,193,7,0.5)]">ARENA PRO</h1>
+</div>
+
+<form id="login-form" class="space-y-6 text-left flex flex-col w-full fade-in">
+<div class="text-center space-y-1 mb-2">
+  <h2 class="text-3xl font-rajdhani font-black uppercase text-[#FFC107] tracking-widest drop-shadow-[0_0_10px_rgba(255,193,7,0.4)]">WELCOME BACK!</h2>
+  <p class="text-[#8A2BE2] text-xs font-bold tracking-widest uppercase">Login to Continue</p>
+</div>
+
+<div class="space-y-4">
+  <div class="relative group">
+    <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-[#FFC107]/50 group-focus-within:text-[#FFC107] transition-colors"><i class="fa-solid fa-envelope"></i></span>
+    <input type="text" id="login-identifier" required placeholder="Email or Phone Number" class="w-full bg-[#050505]/80 border border-[#8A2BE2]/40 rounded-xl py-3.5 pl-11 pr-4 text-sm text-white focus:outline-none focus:border-[#FFC107] focus:shadow-[0_0_15px_rgba(255,193,7,0.3)] transition-all font-grotesk placeholder-gray-500 shadow-inner">
+  </div>
+
+  <div class="relative group">
+    <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-[#FFC107]/50 group-focus-within:text-[#FFC107] transition-colors"><i class="fa-solid fa-lock"></i></span>
+    <input type="password" id="login-password" required placeholder="Password" class="w-full bg-[#050505]/80 border border-[#8A2BE2]/40 rounded-xl py-3.5 pl-11 pr-12 text-sm text-white focus:outline-none focus:border-[#FFC107] focus:shadow-[0_0_15px_rgba(255,193,7,0.3)] transition-all font-grotesk placeholder-gray-500 shadow-inner">
+    <button type="button" onclick="const p=document.getElementById('login-password'); p.type=p.type==='password'?'text':'password';" class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-[#FFC107] transition-colors"><i class="fa-solid fa-eye"></i></button>
+  </div>
+</div>
+
+<div class="flex justify-between items-center text-[11px] font-bold tracking-wider font-grotesk">
+  <label class="flex items-center gap-2 cursor-pointer text-gray-300 hover:text-white transition-colors">
+    <input type="checkbox" class="accent-[#8A2BE2] w-3.5 h-3.5 rounded-sm border-gray-600 bg-[#050505]">
+    <span>Remember Me</span>
+  </label>
+  <button type="button" onclick="window.toggleAuthForms('forgot')" class="text-[#FFC107] hover:text-[#fff3cc] transition-colors">Forgot Password?</button>
+</div>
+
+<button type="submit" id="login-submit-btn" class="w-full py-4 bg-gradient-to-r from-[#8A2BE2] to-[#5e1c9e] border border-[#FFC107] text-white font-rajdhani font-black text-lg uppercase tracking-widest rounded-xl hover:shadow-[0_0_25px_rgba(138,43,226,0.8)] transition-all relative overflow-hidden group/btn mt-2">
+  <span class="relative z-10 drop-shadow-md">LOGIN</span>
+  <div class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700 ease-in-out skew-x-12"></div>
+</button>
+
+<div class="text-center pt-2 text-xs font-bold tracking-wider text-gray-400 font-grotesk">
+  Don't have an account? <button type="button" onclick="window.toggleAuthForms('signup')" class="text-[#FFC107] hover:text-white transition-colors ml-1 uppercase">Sign Up</button>
+</div>
+</form>
+
+<form id="signup-form" class="space-y-4 text-left flex flex-col w-full fade-in hidden">
+<div class="text-center space-y-1 mb-2">
+  <h2 class="text-3xl font-rajdhani font-black uppercase text-[#FFC107] tracking-widest drop-shadow-[0_0_10px_rgba(255,193,7,0.4)]">CREATE ACCOUNT</h2>
+  <p class="text-[#8A2BE2] text-xs font-bold tracking-widest uppercase">JOIN ARENA PRO TODAY</p>
+</div>
+
+<div class="grid grid-cols-1 gap-3.5">
+  <div class="relative group">
+     <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-[#FFC107]/50 group-focus-within:text-[#FFC107] transition-colors"><i class="fa-solid fa-user"></i></span>
+     <input type="text" id="signup-username" required placeholder="Full Name / Gamer Username" class="w-full bg-[#050505]/80 border border-[#8A2BE2]/40 rounded-xl py-3 pl-11 pr-4 text-sm text-white focus:outline-none focus:border-[#FFC107] focus:shadow-[0_0_15px_rgba(255,193,7,0.3)] transition-all font-grotesk placeholder-gray-500 shadow-inner">
+  </div>
+  <div class="relative group">
+     <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-[#FFC107]/50 group-focus-within:text-[#FFC107] transition-colors"><i class="fa-solid fa-envelope"></i></span>
+     <input type="email" id="signup-email" required placeholder="Email Address" class="w-full bg-[#050505]/80 border border-[#8A2BE2]/40 rounded-xl py-3 pl-11 pr-4 text-sm text-white focus:outline-none focus:border-[#FFC107] focus:shadow-[0_0_15px_rgba(255,193,7,0.3)] transition-all font-grotesk placeholder-gray-500 shadow-inner">
+  </div>
+  <div class="relative group">
+     <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-[#FFC107]/50 group-focus-within:text-[#FFC107] transition-colors"><i class="fa-solid fa-phone"></i></span>
+     <input type="tel" id="signup-phone" required placeholder="Mobile Number" class="w-full bg-[#050505]/80 border border-[#8A2BE2]/40 rounded-xl py-3 pl-11 pr-4 text-sm text-white focus:outline-none focus:border-[#FFC107] focus:shadow-[0_0_15px_rgba(255,193,7,0.3)] transition-all font-grotesk placeholder-gray-500 shadow-inner">
+  </div>
+  <div class="relative group">
+     <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-[#FFC107]/50 group-focus-within:text-[#FFC107] transition-colors"><i class="fa-solid fa-lock"></i></span>
+     <input type="password" id="signup-password" required placeholder="Create Password" class="w-full bg-[#050505]/80 border border-[#8A2BE2]/40 rounded-xl py-3 pl-11 pr-12 text-sm text-white focus:outline-none focus:border-[#FFC107] focus:shadow-[0_0_15px_rgba(255,193,7,0.3)] transition-all font-grotesk placeholder-gray-500 shadow-inner">
+     <button type="button" onclick="const p=document.getElementById('signup-password'); p.type=p.type==='password'?'text':'password';" class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-[#FFC107] transition-colors"><i class="fa-solid fa-eye"></i></button>
+  </div>
+  <div class="relative group">
+     <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-[#FFC107]/50 group-focus-within:text-[#FFC107] transition-colors"><i class="fa-solid fa-lock"></i></span>
+     <input type="password" id="signup-confirm" required placeholder="Confirm Password" class="w-full bg-[#050505]/80 border border-[#8A2BE2]/40 rounded-xl py-3 pl-11 pr-12 text-sm text-white focus:outline-none focus:border-[#FFC107] focus:shadow-[0_0_15px_rgba(255,193,7,0.3)] transition-all font-grotesk placeholder-gray-500 shadow-inner">
+     <button type="button" onclick="const p=document.getElementById('signup-confirm'); p.type=p.type==='password'?'text':'password';" class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-[#FFC107] transition-colors"><i class="fa-solid fa-eye"></i></button>
+  </div>
+</div>
+
+<label class="flex items-center gap-2 cursor-pointer text-gray-300 hover:text-white transition-colors text-[10px] font-bold tracking-wider mt-2 font-grotesk">
+  <input type="checkbox" required class="accent-[#8A2BE2] w-3.5 h-3.5 rounded-sm border-gray-600 bg-[#050505]">
+  <span>I agree to Terms & Conditions</span>
+</label>
+
+<button type="submit" id="signup-submit-btn" class="w-full py-4 mt-1 bg-gradient-to-r from-[#8A2BE2] to-[#5e1c9e] border border-[#FFC107] text-white font-rajdhani font-black text-lg uppercase tracking-widest rounded-xl hover:shadow-[0_0_25px_rgba(138,43,226,0.8)] transition-all relative overflow-hidden group/btn">
+  <span class="relative z-10 drop-shadow-md">CREATE ACCOUNT</span>
+  <div class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700 ease-in-out skew-x-12"></div>
+</button>
+
+<div class="text-center pt-1 text-xs font-bold tracking-wider text-gray-400 font-grotesk">
+  Already have an account? <button type="button" onclick="window.toggleAuthForms('login')" class="text-[#FFC107] hover:text-white transition-colors ml-1 uppercase">Login</button>
+</div>
+</form>
+
+<form id="forgot-form" class="space-y-6 text-left flex flex-col w-full fade-in hidden">
+<div class="text-center space-y-1 mb-2">
+  <h2 class="text-3xl font-rajdhani font-black uppercase text-[#FFC107] tracking-widest drop-shadow-[0_0_10px_rgba(255,193,7,0.4)]">RECOVERY</h2>
+  <p class="text-[#8A2BE2] text-xs font-bold tracking-widest uppercase">Issue Reset Link</p>
+</div>
+
+<p class="text-[11px] text-gray-400 text-center leading-relaxed font-grotesk px-4">Enter your registered email address to receive recovery instructions.</p>
+
+<div class="relative group">
+  <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-[#FFC107]/50 group-focus-within:text-[#FFC107] transition-colors"><i class="fa-solid fa-envelope"></i></span>
+  <input type="email" id="forgot-email" required placeholder="Registered Email Address" class="w-full bg-[#050505]/80 border border-[#8A2BE2]/40 rounded-xl py-3.5 pl-11 pr-4 text-sm text-white focus:outline-none focus:border-[#FFC107] focus:shadow-[0_0_15px_rgba(255,193,7,0.3)] transition-all font-grotesk placeholder-gray-500 shadow-inner">
+</div>
+
+<button type="submit" id="forgot-submit-btn" class="w-full py-4 bg-gradient-to-r from-[#8A2BE2] to-[#5e1c9e] border border-[#FFC107] text-white font-rajdhani font-black text-lg uppercase tracking-widest rounded-xl hover:shadow-[0_0_25px_rgba(138,43,226,0.8)] transition-all relative overflow-hidden group/btn">
+  <span class="relative z-10 drop-shadow-md">SEND LINK</span>
+  <div class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700 ease-in-out skew-x-12"></div>
+</button>
+
+<div class="text-center pt-2 text-xs font-bold tracking-wider text-gray-400 font-grotesk">
+  <button type="button" onclick="window.toggleAuthForms('login')" class="text-[#FFC107] hover:text-white transition-colors uppercase">Return to Login</button>
+</div>
+</form>
+
+</div>
+</div>
+
+<div id="app-container" class="hidden relative min-h-screen flex flex-col xl:flex-row">
+
+<header class="glass-luxury fixed top-0 inset-x-0 z-40 px-4 py-3 flex items-center justify-between border-b border-gold/10">
+<div class="flex items-center gap-3">
+<button onclick="window.toggleDrawer(true)" class="p-2 text-gold hover:text-gold-light text-xl focus:outline-none xl:hidden">
+<i class="fa-solid fa-bars-staggered"></i>
+</button>
+<div class="font-rajdhani font-extrabold text-2xl tracking-widest text-gold-gradient">
+ESP<span class="text-white logo-span-light font-black">ORTS</span>
+</div>
+</div>
+
+<div class="flex items-center gap-4">
+<button onclick="window.switchView('wallet')" class="flex items-center gap-2 px-4 py-2 bg-black/50 border border-gold/15 rounded-full hover:border-gold/50 transition-all font-grotesk">
+<i class="fa-solid fa-wallet text-gold text-xs animate-pulse"></i>
+<span class="text-xs font-bold text-emerald-400" id="header-wallet">₹0.00</span>
+</button>
+<div onclick="window.switchView('profile')" class="w-9 h-9 rounded-full overflow-hidden border border-gold cursor-pointer flex-shrink-0 bg-black">
+<img id="header-avatar" src="" alt="Profile avatar" class="w-full h-full object-cover hidden">
+</div>
+</div>
+</header>
+
+<div id="drawer-overlay" class="fixed inset-0 bg-black/80 z-50 opacity-0 pointer-events-none transition-opacity duration-300" onclick="window.toggleDrawer(false)"></div>
+
+<aside id="drawer" class="fixed top-0 bottom-0 left-0 w-72 bg-[#09060F] bg-gradient-to-b from-[#09060F] via-[#140822] to-[#09060F] border-r border-[#d4af37]/20 shadow-[4px_0_24px_rgba(0,0,0,0.6)] z-50 transform -translate-x-full xl:translate-x-0 transition-transform duration-300 ease-out flex flex-col overflow-y-auto" style="will-change: transform; backface-visibility: hidden;">
+
+<nav class="flex flex-col gap-2 px-5 py-6 flex-1 overflow-y-auto custom-scrollbar font-grotesk">
+
+<button onclick="window.switchView('home')" class="drawer-btn group flex items-center w-full px-5 py-4 rounded-xl bg-transparent transition-all duration-300 hover:bg-purple-900/30 hover:shadow-[inset_0_0_20px_rgba(138,43,226,0.25),0_4px_15px_rgba(0,0,0,0.2)] border border-transparent hover:border-purple-500/40 text-left outline-none">
+ <div class="w-8 flex justify-start items-center">
+   <i class="fa-solid fa-house text-[#d4af37] text-xl transition-all duration-300 group-hover:drop-shadow-[0_0_10px_#d4af37] group-hover:scale-110"></i>
+ </div>
+ <span class="text-white font-sans font-semibold tracking-wider text-[13px] ml-1">ARENA HOME</span>
+</button>
+
+<button onclick="window.switchView('matches', 'All')" class="drawer-btn group flex items-center w-full px-5 py-4 rounded-xl bg-transparent transition-all duration-300 hover:bg-purple-900/30 hover:shadow-[inset_0_0_20px_rgba(138,43,226,0.25),0_4px_15px_rgba(0,0,0,0.2)] border border-transparent hover:border-purple-500/40 text-left outline-none">
+ <div class="w-8 flex justify-start items-center">
+   <i class="fa-solid fa-gamepad text-[#d4af37] text-xl transition-all duration-300 group-hover:drop-shadow-[0_0_10px_#d4af37] group-hover:scale-110"></i>
+ </div>
+ <span class="text-white font-sans font-semibold tracking-wider text-[13px] ml-1">PLAY BATTLES</span>
+</button>
+
+<button onclick="window.switchView('my-matches')" class="drawer-btn group flex items-center w-full px-5 py-4 rounded-xl bg-transparent transition-all duration-300 hover:bg-purple-900/30 hover:shadow-[inset_0_0_20px_rgba(138,43,226,0.25),0_4px_15px_rgba(0,0,0,0.2)] border border-transparent hover:border-purple-500/40 text-left outline-none">
+ <div class="w-8 flex justify-start items-center">
+   <i class="fa-solid fa-trophy text-[#d4af37] text-xl transition-all duration-300 group-hover:drop-shadow-[0_0_10px_#d4af37] group-hover:scale-110"></i>
+ </div>
+ <span class="text-white font-sans font-semibold tracking-wider text-[13px] ml-1">MY BATTLES</span>
+</button>
+
+<button onclick="window.switchView('wallet')" class="drawer-btn group flex items-center w-full px-5 py-4 rounded-xl bg-transparent transition-all duration-300 hover:bg-purple-900/30 hover:shadow-[inset_0_0_20px_rgba(138,43,226,0.25),0_4px_15px_rgba(0,0,0,0.2)] border border-transparent hover:border-purple-500/40 text-left outline-none">
+ <div class="w-8 flex justify-start items-center">
+   <i class="fa-solid fa-wallet text-[#d4af37] text-xl transition-all duration-300 group-hover:drop-shadow-[0_0_10px_#d4af37] group-hover:scale-110"></i>
+ </div>
+ <span class="text-white font-sans font-semibold tracking-wider text-[13px] ml-1">WALLET</span>
+</button>
+
+<button onclick="window.switchView('profile')" class="drawer-btn group flex items-center w-full px-5 py-4 rounded-xl bg-transparent transition-all duration-300 hover:bg-purple-900/30 hover:shadow-[inset_0_0_20px_rgba(138,43,226,0.25),0_4px_15px_rgba(0,0,0,0.2)] border border-transparent hover:border-purple-500/40 text-left outline-none">
+ <div class="w-8 flex justify-start items-center">
+   <i class="fa-solid fa-user text-[#d4af37] text-xl transition-all duration-300 group-hover:drop-shadow-[0_0_10px_#d4af37] group-hover:scale-110"></i>
+ </div>
+ <span class="text-white font-sans font-semibold tracking-wider text-[13px] ml-1">PROFILE</span>
+</button>
+
+</nav>
+
+<div class="px-5 pb-8 shrink-0 font-grotesk border-t border-[#d4af37]/10 pt-6">
+<button id="logout-btn" class="group flex items-center w-full px-5 py-4 rounded-xl bg-transparent transition-all duration-300 hover:bg-red-900/20 hover:shadow-[inset_0_0_20px_rgba(255,0,0,0.15),0_4px_15px_rgba(0,0,0,0.2)] border border-transparent hover:border-red-500/40 text-left outline-none">
+ <div class="w-8 flex justify-start items-center">
+   <i class="fa-solid fa-right-from-bracket text-[#d4af37] text-xl transition-all duration-300 group-hover:text-red-400 group-hover:drop-shadow-[0_0_10px_rgba(255,0,0,0.6)] group-hover:scale-110"></i>
+ </div>
+ <span class="text-white font-sans font-semibold tracking-wider text-[13px] ml-1">CLOSE SESSION</span>
+</button>
+</div>
+
+</aside>
+
+<main class="flex-1 pt-20 px-4 md:px-8 max-w-5xl mx-auto space-y-6 w-full xl:ml-72 pb-20">
+
+<section id="view-home" class="view-panel fade-in space-y-6">
+
+<div class="bg-[#05020c]/90 backdrop-blur-2xl p-4 sm:p-6 rounded-[2rem] border-2 border-[#d4af37] shadow-[0_8px_32px_rgba(212,175,55,0.15)] relative overflow-hidden flex flex-row items-center gap-4 sm:gap-6 group transition-all duration-500">
+
+<div class="absolute -top-24 -right-24 w-64 h-64 bg-purple-900/20 rounded-full blur-[60px] pointer-events-none"></div>
+<div class="absolute -bottom-10 -left-10 w-40 h-40 bg-[#d4af37]/15 rounded-full blur-[50px] pointer-events-none"></div>
+
+<div class="relative w-20 h-20 sm:w-28 sm:h-28 shrink-0 z-10">
+  <div class="absolute inset-0 rounded-full border-[3px] border-transparent border-t-[#d4af37] border-b-[#d4af37] shadow-[0_0_20px_rgba(212,175,55,0.6)] animate-[spin_4s_linear_infinite]"></div>
+  <div class="absolute inset-1 sm:inset-2 rounded-full overflow-hidden border-2 border-[#d4af37]/50 bg-black">
+    <img id="home-card-avatar" src="" alt="Avatar" class="w-full h-full object-cover hidden">
+  </div>
+</div>
+
+<div class="flex-1 flex flex-col justify-center z-10 w-full relative">
+  
+  <div class="flex items-center gap-2 sm:gap-3">
+    <h2 id="home-card-username" class="text-2xl sm:text-4xl font-rajdhani font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-[#f1e2b3] via-[#d4af37] to-[#b8921e] drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] truncate max-w-[150px] sm:max-w-[300px]">PlayerName</h2>
+    
+    <div id="verified-badge-icon" class="hidden relative flex items-center justify-center w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] shrink-0 drop-shadow-[0_0_8px_rgba(139,92,246,0.85)]" title="Premium Verified">
+      <svg class="w-full h-full text-[#8b5cf6]" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+      </svg>
+      <svg class="absolute w-[8px] h-[8px] sm:w-[10px] sm:h-[10px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+  </div>
+  
+  <div class="flex items-center gap-2 font-grotesk mt-1">
+    <span class="text-[#d4af37] uppercase tracking-widest text-[9px] sm:text-[11px] font-black">UID:</span>
+    <span id="home-card-uid" class="text-slate-300 font-mono font-bold tracking-wider text-xs sm:text-sm">Loading</span>
+    <button onclick="navigator.clipboard.writeText(document.getElementById('home-card-uid').innerText); window.showToast('UID Copied!', 'success');" class="text-[#d4af37]/70 hover:text-[#d4af37] transition-all ml-1 hover:scale-110">
+      <i class="fa-regular fa-copy text-xs sm:text-sm"></i>
+    </button>
+  </div>
+
+  <div id="home-card-badge-container" class="hidden inline-flex items-center gap-1.5 sm:gap-2 bg-gradient-to-r from-purple-900/50 to-[#0c071a] px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl border border-purple-500/40 shadow-[0_0_15px_rgba(139,92,246,0.2)] mt-2 w-max transition-all duration-300">
+    <i id="home-card-badge-icon" class="fa-solid fa-crown text-[#d4af37] text-[11px] sm:text-[13px] drop-shadow-[0_0_8px_rgba(212,175,55,0.9)]"></i>
+    <span id="home-card-badge-name" class="text-purple-200 uppercase tracking-widest text-[9px] sm:text-[11px] font-bold">BRONZE</span>
+  </div>
+  
+</div>
+
+<div class="absolute top-4 right-4 sm:relative sm:top-auto sm:right-auto bg-[#030107]/90 p-2 sm:p-5 sm:rounded-2xl rounded-xl border border-[#d4af37]/30 sm:min-w-[150px] z-10 text-right shadow-[inset_0_0_30px_rgba(0,0,0,0.8)] flex flex-col justify-center font-grotesk">
+  <span class="hidden sm:flex text-[10px] text-[#d4af37]/90 uppercase tracking-widest font-black items-center justify-end gap-2 mb-1">
+    <i class="fa-solid fa-vault"></i> Main Vault
+  </span>
+  <p id="home-card-balance" class="text-sm sm:text-3xl font-rajdhani font-black text-emerald-400 drop-shadow-[0_0_15px_rgba(16,185,129,0.4)]">₹0.00</p>
+</div>
+</div>
+
+<div id="banner-slider-container" class="relative w-full h-48 sm:h-56 rounded-[2rem] overflow-hidden border border-[#d4af37]/30 shadow-[0_0_30px_rgba(212,175,55,0.15)] bg-[#05020c] group">
+<div id="slider-wrapper" class="w-full h-full flex transition-transform duration-500 ease-in-out">
+  <div id="slider-skeleton" class="skeleton-wave w-full h-full absolute inset-0"></div>
+</div>
+<div id="slider-dots" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-20"></div>
+<div id="slider-empty" class="absolute inset-0 flex items-center justify-center hidden text-slate-500 text-sm font-semibold">
+  No Banner Available
+</div>
+</div>
+
+<div class="grid grid-cols-2 gap-4 sm:gap-6 font-grotesk">
+
+<div class="col-span-1 relative rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border border-purple-500/40 bg-[#0c071a]/95 backdrop-blur-xl flex flex-col group hover:border-purple-400 shadow-[0_0_20px_rgba(212,175,55,0.15)] hover:shadow-[0_0_40px_rgba(212,175,55,0.35)] transition-all duration-500 transform hover:-translate-y-1">
+  <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-purple-500 to-transparent group-hover:via-purple-400 transition-colors duration-500 z-10"></div>
+  
+  <div class="h-32 sm:h-56 relative bg-black overflow-hidden flex items-center justify-center">
+    <img id="banner-solo" src="" class="w-full h-full object-cover hidden transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-90">
+    <div id="banner-solo-skeleton" class="skeleton-wave w-full h-full absolute inset-0"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-[#0c071a] via-[#0c071a]/30 to-transparent z-0"></div>
+    <div class="absolute inset-0 bg-gradient-to-tr from-purple-900/60 to-transparent mix-blend-overlay z-0"></div>
+    <h4 class="absolute bottom-3 left-4 sm:bottom-5 sm:left-6 text-2xl sm:text-4xl font-rajdhani font-black text-white uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] z-10">SOLO <span class="text-purple-400 drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]">BATTLES</span></h4>
+  </div>
+  
+  <div class="p-4 sm:p-6 flex-1 flex flex-col justify-end bg-gradient-to-b from-[#0c071a] to-[#05020c] relative z-10">
+    <button onclick="window.switchView('matches', 'Solo')" class="relative w-full py-3 sm:py-4 bg-gradient-to-r from-purple-700 via-purple-500 to-purple-700 text-white font-rajdhani font-black text-sm sm:text-xl uppercase tracking-widest rounded-xl transition-all duration-300 hover:shadow-[0_0_25px_rgba(168,85,247,0.6)] overflow-hidden group/btn">
+      <div class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700 ease-in-out skew-x-12"></div>
+      <span class="relative z-10 flex items-center justify-center gap-2 drop-shadow-md">
+        <i class="fa-solid fa-play text-xs sm:text-sm"></i> PLAY NOW
+      </span>
+    </button>
+  </div>
+</div>
+
+<div class="col-span-1 relative rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border border-[#d4af37]/40 bg-[#0c071a]/95 backdrop-blur-xl flex flex-col group hover:border-[#f1e2b3] shadow-[0_0_20px_rgba(212,175,55,0.15)] hover:shadow-[0_0_40px_rgba(212,175,55,0.35)] transition-all duration-500 transform hover:-translate-y-1">
+  <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent group-hover:via-[#f1e2b3] transition-colors duration-500 z-10"></div>
+  
+  <div class="h-32 sm:h-56 relative bg-black overflow-hidden flex items-center justify-center">
+    <img id="banner-duo" src="" class="w-full h-full object-cover hidden transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-90">
+    <div id="banner-duo-skeleton" class="skeleton-wave w-full h-full absolute inset-0"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-[#0c071a] via-[#0c071a]/30 to-transparent z-0"></div>
+    <div class="absolute inset-0 bg-gradient-to-tr from-orange-900/60 to-transparent mix-blend-overlay z-0"></div>
+    <h4 class="absolute bottom-3 left-4 sm:bottom-5 sm:left-6 text-2xl sm:text-4xl font-rajdhani font-black text-white uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] z-10">DUO <span class="text-[#d4af37] drop-shadow-[0_0_10px_rgba(212,175,55,0.8)]">BATTLES</span></h4>
+  </div>
+  
+  <div class="p-4 sm:p-6 flex-1 flex flex-col justify-end bg-gradient-to-b from-[#0c071a] to-[#05020c] relative z-10">
+    <button onclick="window.switchView('matches', 'Duo')" class="relative w-full py-3 sm:py-4 bg-gradient-to-r from-[#b8921e] via-[#d4af37] to-[#b8921e] text-black font-rajdhani font-black text-sm sm:text-xl uppercase tracking-widest rounded-xl transition-all duration-300 hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] overflow-hidden group/btn">
+      <div class="absolute inset-0 bg-white/30 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700 ease-in-out skew-x-12"></div>
+      <span class="relative z-10 flex items-center justify-center gap-2 drop-shadow-md">
+        <i class="fa-solid fa-play text-xs sm:text-sm"></i> PLAY NOW
+      </span>
+    </button>
+  </div>
+</div>
+
+<div class="col-span-2 relative rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border border-rose-500/40 bg-[#0c071a]/95 backdrop-blur-xl flex flex-col group hover:border-rose-400 shadow-[0_0_20px_rgba(244,63,94,0.15)] hover:shadow-[0_0_40px_rgba(244,63,94,0.35)] transition-all duration-500 transform hover:-translate-y-1">
+  <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-rose-500 to-transparent group-hover:via-rose-400 transition-colors duration-500 z-10"></div>
+  
+  <div class="flex flex-col md:flex-row h-full">
+    <div class="h-48 md:h-72 w-full md:w-[60%] relative bg-black overflow-hidden flex items-center justify-center flex-shrink-0">
+      <img id="banner-squad" src="" class="w-full h-full object-cover hidden transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-90">
+      <div id="banner-squad-skeleton" class="skeleton-wave w-full h-full absolute inset-0"></div>
+      <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#0c071a] via-[#0c071a]/30 to-transparent z-0"></div>
+      <div class="absolute inset-0 bg-gradient-to-tr from-rose-900/50 to-transparent mix-blend-overlay z-0"></div>
+      <h4 class="absolute bottom-5 left-6 md:bottom-8 md:left-8 text-4xl md:text-5xl font-rajdhani font-black text-white uppercase tracking-widest drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)] z-10">SQUAD <span class="text-rose-500 drop-shadow-[0_0_12px_rgba(244,63,94,0.8)]">BATTLES</span></h4>
+    </div>
+    
+    <div class="p-5 md:p-8 flex-1 flex flex-col justify-center bg-gradient-to-b md:bg-gradient-to-l from-[#0c071a] to-[#05020c] md:to-[#0c071a] relative z-10 w-full">
+      <p class="text-[11px] md:text-xs text-slate-300 uppercase font-semibold mb-6 tracking-wider leading-relaxed hidden md:block">Assemble your ultimate 4-player squad. Tactical domination and unmatched firepower required to secure the undeniable victory.</p>
+      
+      <button onclick="window.switchView('matches', 'Squad')" class="relative w-full py-3.5 md:py-4 bg-gradient-to-r from-rose-700 via-rose-500 to-rose-700 text-white font-rajdhani font-black text-lg md:text-2xl uppercase tracking-widest rounded-xl transition-all duration-300 hover:shadow-[0_0_30px_rgba(244,63,94,0.6)] overflow-hidden group/btn">
+        <div class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700 ease-in-out skew-x-12"></div>
+        <span class="relative z-10 flex items-center justify-center gap-2 drop-shadow-md">
+          <i class="fa-solid fa-play text-sm md:text-base"></i> PLAY NOW
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+
+</div>
+</section>
+
+<section id="view-matches" class="view-panel fade-in space-y-5 hidden">
+
+<div class="battles-hero">
+ <div class="absolute -top-8 -right-8 w-48 h-48 bg-purple-800/10 rounded-full blur-[60px] pointer-events-none"></div>
+ <div class="absolute -bottom-6 -left-6 w-36 h-36 bg-yellow-700/10 rounded-full blur-[50px] pointer-events-none"></div>
+
+ <div class="relative z-10 flex items-center justify-between gap-4">
+   <div class="flex-1 min-w-0">
+     <div class="flex items-center gap-2 mb-1">
+       <span class="live-dot"></span>
+       <span style="font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:800;letter-spacing:0.22em;color:rgba(34,197,94,0.9);text-transform:uppercase;">LIVE ARENA</span>
+     </div>
+     <div class="battles-hero-title">ALL<br class="sm:hidden"> <span style="color:transparent;background:linear-gradient(135deg,#d4af37,#f1e2b3,#d4af37);-webkit-background-clip:text;background-clip:text;">BATTLES</span></div>
+     <div class="battles-hero-subtitle">Compete. Conquer. Earn Rewards.</div>
+
+     <div class="flex items-center gap-4 mt-3 flex-wrap">
+       <div class="flex items-center gap-1.5 text-xs text-slate-300 font-grotesk font-semibold tracking-wider">
+         <i class="fa-solid fa-shield-halved text-gold"></i>
+         <span id="hero-total-count">— Matches</span>
+       </div>
+       <div class="w-[1px] h-3.5 bg-gold/20"></div>
+       <div class="flex items-center gap-1.5 text-xs text-slate-300 font-grotesk font-semibold tracking-wider">
+         <i class="fa-solid fa-trophy text-gold"></i>
+         <span>Big Rewards</span>
+       </div>
+     </div>
+   </div>
+
+   <div class="shrink-0 w-[80px] h-[80px] flex items-center justify-center relative">
+     <div class="absolute inset-0 rounded-full border border-gold/25 animate-pulse"></div>
+     <svg class="hero-trophy-glow" width="48" height="48" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <defs>
+         <linearGradient id="tg1" x1="0" y1="0" x2="1" y2="1">
+           <stop offset="0%" stop-color="#f1e2b3"/>
+           <stop offset="45%" stop-color="#d4af37"/>
+           <stop offset="100%" stop-color="#b8921e"/>
+         </linearGradient>
+       </defs>
+       <path d="M20 8 H44 L40 32 Q32 40 24 32 Z" fill="url(#tg1)"/>
+       <path d="M20 12 Q10 14 10 22 Q10 30 20 28" stroke="url(#tg1)" stroke-width="3" fill="none"/>
+       <path d="M44 12 Q54 14 54 22 Q54 30 44 28" stroke="url(#tg1)" stroke-width="3" fill="none"/>
+       <path d="M28 40 L26 50 M36 40 L38 50" stroke="url(#tg1)" stroke-width="3"/>
+       <rect x="20" y="50" width="24" height="5" rx="2.5" fill="url(#tg1)"/>
+     </svg>
+   </div>
+ </div>
+
+ <div class="relative z-10 mt-3 pt-3 border-t border-gold/10 flex items-center justify-between">
+   <h3 id="matches-section-title" class="font-rajdhani font-black uppercase tracking-widest text-white text-sm" style="letter-spacing:0.18em;"></h3>
+   <button onclick="window.switchView('home')" class="flex items-center gap-1.5 text-gold/70 hover:text-gold text-[10px] font-bold tracking-wider font-grotesk uppercase transition-colors">
+     <i class="fa-solid fa-arrow-left"></i> Back
+   </button>
+ </div>
+</div>
+
+<div class="battles-filter-bar">
+ <button onclick="window.filterMatchStatus('All')" class="filter-pill pill-all pill-active">
+   <i class="fa-solid fa-layer-group"></i> ALL
+ </button>
+ <button onclick="window.filterMatchStatus('upcoming')" class="filter-pill pill-upcoming">
+   <i class="fa-solid fa-clock"></i> UPCOMING
+ </button>
+ <button onclick="window.filterMatchStatus('live')" class="filter-pill pill-live">
+   <i class="fa-solid fa-circle text-[6px]"></i> LIVE
+ </button>
+ <button onclick="window.filterMatchStatus('completed')" class="filter-pill pill-completed">
+   <i class="fa-solid fa-circle-check"></i> COMPLETED
+ </button>
+ <button onclick="window.filterMatchStatus('cancelled')" class="filter-pill pill-cancelled">
+   <i class="fa-solid fa-ban"></i> CANCELLED
+ </button>
+</div>
+
+<!-- Configured Grid Spacing Gap targeting independent Premium Luxury Cards -->
+<div id="matches-feed" class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10"></div>
+
+</section>
+
+<section id="view-my-matches" class="view-panel fade-in space-y-6 hidden">
+<div class="flex items-center justify-between border-b border-gold/10 pb-3">
+<h3 class="text-2xl font-rajdhani font-black uppercase text-gold">My Registered Battles</h3>
+</div>
+<div class="flex overflow-x-auto custom-scrollbar gap-2 pb-2 text-[10px] font-bold text-center uppercase font-grotesk">
+<button onclick="window.filterMyMatchesTab('upcoming')" class="mytourn-btn px-6 py-2.5 rounded-xl bg-gold/10 border border-gold text-white whitespace-nowrap">Upcoming</button>
+<button onclick="window.filterMyMatchesTab('live')" class="mytourn-btn px-6 py-2.5 rounded-xl border border-gold/15 text-slate-400 hover:bg-gold/5 whitespace-nowrap">Live now</button>
+<button onclick="window.filterMyMatchesTab('completed')" class="mytourn-btn px-6 py-2.5 rounded-xl border border-gold/15 text-slate-400 hover:bg-gold/5 whitespace-nowrap">Completed</button>
+<button onclick="window.filterMyMatchesTab('cancelled')" class="mytourn-btn px-6 py-2.5 rounded-xl border border-gold/15 text-slate-400 hover:bg-gold/5 whitespace-nowrap">Cancelled</button>
+</div>
+<div id="mytournaments-feed" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+</section>
+
+<section id="view-wallet" class="view-panel fade-in space-y-6 hidden">
+<div class="glass-luxury p-8 rounded-3xl text-center border border-gold/20 relative overflow-hidden">
+<p class="text-xs text-slate-400 uppercase tracking-widest mb-1">Available Account Balance</p>
+<p id="wallet-main-balance" class="text-4xl font-rajdhani font-black text-emerald-400">₹0.00</p>
+</div>
+
+<div class="grid grid-cols-2 gap-4">
+<button onclick="window.toggleWalletTabs('deposit')" id="wallet-tab-dep-btn" class="py-3 bg-gradient-to-r from-gold to-gold-dark text-black rounded-xl text-xs font-bold uppercase tracking-wider glow-gold-btn">Deposit</button>
+<button onclick="window.toggleWalletTabs('withdraw')" id="wallet-tab-with-btn" class="py-3 bg-black/40 border border-gold/15 text-gold rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-gold/5">Withdraw</button>
+</div>
+
+<div id="wallet-deposit-panel" class="glass-luxury p-6 rounded-3xl space-y-4">
+<h4 class="text-sm font-semibold text-white uppercase tracking-wider border-b border-gold/10 pb-2">Add Funds</h4>
+<div class="bg-black/30 p-4 border border-gold/10 rounded-2xl text-xs font-grotesk space-y-2">
+  <p class="text-slate-400">Send payments to UPI ID below and upload screenshot.</p>
+  <div class="flex justify-between items-center bg-black/50 p-2 rounded border border-gold/20">
+    <strong id="dep-upi-id" class="text-white">tournament-admin@upi</strong>
+    <button onclick="window.copyToClipboard('dep-upi-id')" class="text-gold"><i class="fa-solid fa-copy"></i></button>
+  </div>
+</div>
+<form id="deposit-form" class="space-y-4">
+  <input type="number" id="dep-amt" min="10" required placeholder="Amount (Min ₹10)" class="w-full px-4 py-2.5 bg-black/40 border border-gold/15 rounded-xl text-xs text-white">
+  <input type="text" id="dep-utr" required placeholder="UTR / Reference ID" class="w-full px-4 py-2.5 bg-black/40 border border-gold/15 rounded-xl text-xs text-white">
+  <input type="file" id="dep-ss" accept="image/*" class="w-full text-xs text-slate-300 bg-black/40 border border-gold/15 p-2 rounded-xl">
+  <button type="submit" id="dep-submit-btn" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold uppercase">Submit Request</button>
+</form>
+</div>
+
+<div id="wallet-withdraw-panel" class="glass-luxury p-6 rounded-3xl space-y-4 hidden">
+<h4 class="text-sm font-semibold text-white uppercase tracking-wider border-b border-gold/10 pb-2">Withdraw Funds</h4>
+<form id="withdraw-form" class="space-y-4">
+  <input type="number" id="with-amt" min="50" required placeholder="Amount (Min ₹50)" class="w-full px-4 py-2.5 bg-black/40 border border-gold/15 rounded-xl text-xs text-white">
+  <input type="text" id="with-upi" required placeholder="Your UPI ID" class="w-full px-4 py-2.5 bg-black/40 border border-gold/15 rounded-xl text-xs text-white">
+  <button type="submit" id="with-submit-btn" class="w-full py-3 bg-gradient-to-r from-gold to-gold-dark text-black rounded-xl text-xs font-bold uppercase glow-gold-btn">Request Payout</button>
+</form>
+</div>
+
+<div class="space-y-4">
+<h4 class="text-sm font-rajdhani font-black text-gold uppercase tracking-wider">Transaction History</h4>
+<div id="transaction-feed" class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar"></div>
+</div>
+</section>
+
+<section id="view-profile" class="view-panel fade-in space-y-6 hidden">
+<h3 class="text-2xl font-rajdhani font-black uppercase text-gold">Warrior Profile</h3>
+<div class="glass-luxury p-6 rounded-3xl max-w-xl space-y-6">
+<div class="flex flex-col sm:flex-row gap-6 items-center border-b border-gold/10 pb-6">
+  <div class="relative w-24 h-24 shrink-0 bg-black border border-gold/25 rounded-full overflow-hidden">
+    <img id="profile-edit-avatar" src="" class="w-full h-full object-cover hidden">
+    <button onclick="document.getElementById('profile-file').click()" class="absolute bottom-0 right-0 bg-gold hover:bg-gold-dark text-black w-7 h-7 rounded-full flex items-center justify-center border-2 border-[#0c071a] text-xs transition-all"><i class="fa-solid fa-camera"></i></button>
+    <input type="file" id="profile-file" accept="image/*" class="hidden">
+  </div>
+  <div class="text-center sm:text-left space-y-1 font-grotesk">
+    <h4 id="profile-name" class="text-xl font-rajdhani font-bold text-white">Loading...</h4>
+    <p class="text-xs text-slate-400">UID: <span id="profile-uid" class="font-mono text-gold-light">...</span></p>
+  </div>
+</div>
+
+<form id="profile-form" class="space-y-4">
+  <div class="grid grid-cols-1 gap-4">
+    <div class="space-y-1">
+      <label class="text-[10px] text-slate-300 font-bold uppercase block">Email Address (Read Only)</label>
+      <input type="text" id="prof-email" readonly class="w-full px-4 py-2.5 bg-black/60 border border-gold/10 rounded-xl text-xs text-slate-400 outline-none cursor-not-allowed">
+    </div>
+    <div class="space-y-1">
+      <label class="text-[10px] text-slate-300 font-bold uppercase block">Phone Number</label>
+      <input type="text" id="prof-phone" placeholder="Your Phone Number" class="w-full px-4 py-2.5 bg-black/40 border border-gold/15 rounded-xl text-xs text-white">
+    </div>
+  </div>
+  <button type="submit" class="px-6 py-2.5 bg-gradient-to-r from-gold to-gold-dark text-black rounded-xl text-xs font-bold uppercase tracking-wider glow-gold-btn">Save Configurations</button>
+</form>
+</div>
+</section>
+
+</main>
+
+<footer class="glass-luxury fixed bottom-0 inset-x-0 z-40 border-t border-gold/10 py-3 px-4 flex justify-around text-slate-400 text-xs text-center font-bold tracking-wide uppercase font-grotesk xl:hidden">
+<button onclick="window.switchView('home')" class="nav-mobile-btn flex flex-col items-center gap-1 hover:text-gold transition-all text-gold">
+<i class="fa-solid fa-house text-base"></i>
+<span class="text-[9px]">Arena</span>
+</button>
+<button onclick="window.switchView('matches', 'All')" class="nav-mobile-btn flex flex-col items-center gap-1 hover:text-gold transition-all">
+<i class="fa-solid fa-gamepad text-base"></i>
+<span class="text-[9px]">Battles</span>
+</button>
+<button onclick="window.switchView('my-matches')" class="nav-mobile-btn flex flex-col items-center gap-1 hover:text-gold transition-all">
+<i class="fa-solid fa-trophy text-base"></i>
+<span class="text-[9px]">History</span>
+</button>
+<button onclick="window.switchView('wallet')" class="nav-mobile-btn flex flex-col items-center gap-1 hover:text-gold transition-all">
+<i class="fa-solid fa-wallet text-base"></i>
+<span class="text-[9px]">Wallet</span>
+</button>
+<button onclick="window.switchView('profile')" class="nav-mobile-btn flex flex-col items-center gap-1 hover:text-gold transition-all">
+<i class="fa-solid fa-user text-base"></i>
+<span class="text-[9px]">Profile</span>
+</button>
+</footer>
+
+</div>
+
+<div id="join-modal" class="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+<div class="glass-luxury w-full max-w-sm p-6 rounded-3xl space-y-5 border border-gold/30">
+<div class="text-center">
+<h4 class="text-xl font-rajdhani font-black uppercase text-gold tracking-widest">Join Roster</h4>
+<p class="text-[10px] text-slate-400 uppercase tracking-wider font-grotesk mt-1" id="join-modal-tourn-name">Tournament Name</p>
+</div>
+
+<form id="join-form" class="space-y-4">
+<div class="space-y-1">
+<label class="text-[10px] text-slate-300 font-bold uppercase block font-grotesk">In-Game Name</label>
+<input type="text" id="join-gamename" required placeholder="Exact Game Name" class="w-full px-4 py-2.5 bg-black/60 border border-gold/15 rounded-xl text-xs text-white focus:border-gold outline-none">
+</div>
+<div class="space-y-1">
+<label class="text-[10px] text-slate-300 font-bold uppercase block font-grotesk">BGMI Character ID (UID)</label>
+<input type="text" id="join-uid" required pattern="\d+" title="Only numbers allowed for UID" placeholder="E.g. 5123456789" class="w-full px-4 py-2.5 bg-black/60 border border-gold/15 rounded-xl text-xs text-white focus:border-gold outline-none font-mono">
+</div>
+
+<div class="flex justify-between items-center border-t border-gold/10 pt-4 mt-2">
+<span class="text-xs text-slate-400 font-bold uppercase">Entry Fee:</span>
+<span class="text-lg font-rajdhani font-black text-emerald-400" id="join-modal-fee">₹0</span>
+</div>
+
+<div class="flex gap-3 pt-2">
+<button type="button" onclick="window.closeJoinModal()" class="flex-1 py-3 bg-black/40 border border-gold/15 rounded-xl font-bold uppercase text-slate-300 hover:text-white text-xs transition-all">Cancel</button>
+<button type="submit" id="join-confirm-btn" class="flex-1 py-3 bg-gradient-to-r from-gold to-gold-dark text-black rounded-xl font-extrabold uppercase glow-gold-btn text-xs transition-all">Confirm Join</button>
+</div>
+</form>
+</div>
+</div>
+
+<div id="room-details-modal" class="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+<div class="glass-luxury w-full max-w-sm p-6 rounded-3xl space-y-4 border border-gold/30 text-center">
+<div class="w-12 h-12 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center mx-auto mb-2">
+<i class="fa-solid fa-key text-gold text-xl"></i>
+</div>
+<h4 class="text-xl font-rajdhani font-black uppercase text-white tracking-widest">Room Access</h4>
+
+<div id="room-content-visible" class="space-y-3 hidden">
+<p class="text-[10px] text-emerald-400 font-bold uppercase tracking-widest">Credentials Active</p>
+<div class="bg-black/60 p-4 rounded-xl border border-gold/15 space-y-2 text-left">
+<div class="flex justify-between items-center border-b border-gold/10 pb-2">
+  <span class="text-[10px] text-slate-400 uppercase font-bold">Room ID</span>
+  <strong id="rd-id" class="text-white font-mono text-sm tracking-wider">...</strong>
+</div>
+<div class="flex justify-between items-center pt-1">
+  <span class="text-[10px] text-slate-400 uppercase font-bold">Password</span>
+  <strong id="rd-pass" class="text-white font-mono text-sm tracking-wider">...</strong>
+</div>
+</div>
+</div>
+
+<div id="room-content-hidden" class="space-y-2">
+<i class="fa-solid fa-lock text-slate-500 text-3xl my-2"></i>
+<p class="text-xs text-slate-400 font-medium">Room ID and Password will be displayed here once enabled by the Admin before the match starts.</p>
+</div>
+
+<button onclick="window.closeRoomModal()" class="w-full py-3 mt-4 bg-black/40 border border-gold/15 rounded-xl font-bold uppercase text-gold hover:bg-gold/10 text-xs transition-all">Dismiss</button>
+</div>
+</div>
+
+<!-- Premium Match Details Modal -->
+<div id="match-details-modal" class="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+  <div class="glass-luxury w-full max-w-lg rounded-3xl border border-gold/30 overflow-hidden flex flex-col max-h-[90vh] shadow-[0_0_50px_rgba(212,175,55,0.15)] transform scale-95 transition-all duration-300">
+    <!-- Header Banner Image inside Popup -->
+    <div class="relative h-44 w-full overflow-hidden shrink-0 bg-[#0c071a]">
+      <img id="md-popup-banner" src="" class="w-full h-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-t from-[#0c071a] via-[#0c071a]/40 to-transparent"></div>
+      <!-- Close Button -->
+      <button onclick="window.closeMatchDetailsModal()" class="absolute top-4 right-4 w-9 h-9 bg-black/60 hover:bg-black/80 rounded-full flex items-center justify-center text-white border border-white/10 transition-all hover:scale-110">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+      
+      <!-- Title & Mode Badge in Header -->
+      <div class="absolute bottom-4 left-5 right-5 z-10">
+        <span id="md-popup-mode" class="inline-block px-2.5 py-0.5 rounded text-[10px] font-black uppercase tracking-wider font-rajdhani text-white bg-purple-600 mb-2">Solo</span>
+        <h3 id="md-popup-title" class="font-rajdhani font-black text-2xl sm:text-3xl text-white uppercase tracking-wider drop-shadow-md leading-tight">Match Title</h3>
+      </div>
+    </div>
+
+    <!-- Scrollable Content -->
+    <div class="p-6 overflow-y-auto custom-scrollbar space-y-5 font-grotesk text-slate-300 text-sm">
+      
+      <!-- Quick Specs Horizontal Info Row -->
+      <div class="bg-black/50 border border-gold/15 p-3 rounded-xl flex justify-around text-center text-xs font-semibold uppercase tracking-wider">
+        <div>
+          <span class="block text-[9px] text-slate-500">MAP</span>
+          <strong id="md-popup-map" class="text-gold">ERANGEL</strong>
+        </div>
+        <div class="w-[1px] bg-gold/10"></div>
+        <div>
+          <span class="block text-[9px] text-slate-500">DATE</span>
+          <strong id="md-popup-date" class="text-white">—</strong>
+        </div>
+        <div class="w-[1px] bg-gold/10"></div>
+        <div>
+          <span class="block text-[9px] text-slate-500">TIME</span>
+          <strong id="md-popup-time" class="text-white">—</strong>
+        </div>
+      </div>
+
+      <!-- Dynamic Description Section -->
+      <div id="md-popup-desc-sec" class="space-y-1.5 hidden">
+        <h5 class="text-xs font-bold uppercase text-gold tracking-widest"><i class="fa-solid fa-circle-info mr-1"></i> Map Description</h5>
+        <p id="md-popup-description" class="text-xs text-slate-400 leading-relaxed"></p>
+      </div>
+
+      <!-- Dynamic Rules Section -->
+      <div id="md-popup-rules-sec" class="space-y-1.5 hidden">
+        <h5 class="text-xs font-bold uppercase text-rose-400 tracking-widest"><i class="fa-solid fa-clipboard-list mr-1"></i> Match Rules</h5>
+        <p id="md-popup-rules" class="text-xs text-slate-400 leading-relaxed whitespace-pre-line bg-black/40 p-3 rounded-xl border border-red-500/10"></p>
+      </div>
+
+      <!-- Core Economics Details Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+        <div class="bg-purple-950/20 border border-purple-500/10 p-2.5 rounded-xl">
+          <span class="block text-[9px] uppercase tracking-wider text-slate-500 font-bold">Prize Pool</span>
+          <strong id="md-popup-prize" class="block text-base text-yellow-400 font-rajdhani font-black">₹0</strong>
+        </div>
+        <div class="bg-purple-950/20 border border-purple-500/10 p-2.5 rounded-xl">
+          <span class="block text-[9px] uppercase tracking-wider text-slate-500 font-bold">Per Kill</span>
+          <strong id="md-popup-perkill" class="block text-base text-purple-400 font-rajdhani font-black">₹0</strong>
+        </div>
+        <div class="bg-purple-950/20 border border-purple-500/10 p-2.5 rounded-xl">
+          <span class="block text-[9px] uppercase tracking-wider text-slate-500 font-bold">Entry Fee</span>
+          <strong id="md-popup-fee" class="block text-base text-emerald-400 font-rajdhani font-black">₹0</strong>
+        </div>
+        <div id="md-popup-winners-btn" class="bg-purple-950/20 border border-purple-500/10 p-2.5 rounded-xl cursor-pointer hover:bg-purple-950/40 transition-all">
+          <span class="block text-[9px] uppercase tracking-wider text-slate-500 font-bold" id="md-popup-winners-label">Winner Prize</span>
+          <strong id="md-popup-winners" class="block text-base text-blue-400 font-rajdhani font-black truncate">₹0</strong>
+        </div>
+      </div>
+
+      <!-- Room Credentials Panel -->
+      <div id="md-popup-room-sec" class="bg-black/60 border border-purple-500/20 rounded-2xl p-4 space-y-2">
+        <h5 class="text-xs font-bold uppercase text-purple-300 tracking-widest flex items-center justify-between">
+          <span><i class="fa-solid fa-key mr-1 text-gold"></i> Room Credentials</span>
+          <span id="md-popup-room-status" class="text-[9px] px-2 py-0.5 rounded font-black">Locked</span>
+        </h5>
+        <div id="md-popup-room-creds" class="grid grid-cols-2 gap-3 text-xs pt-1 hidden">
+          <div class="bg-purple-950/40 p-2 rounded-lg border border-purple-500/10 flex justify-between items-center">
+            <span class="text-slate-500 font-semibold">Room ID</span>
+            <strong id="md-popup-room-id" class="text-white font-mono">...</strong>
+          </div>
+          <div class="bg-purple-950/40 p-2 rounded-lg border border-purple-500/10 flex justify-between items-center">
+            <span class="text-slate-500 font-semibold">Password</span>
+            <strong id="md-popup-room-pass" class="text-white font-mono">...</strong>
+          </div>
+        </div>
+        <p id="md-popup-room-locked" class="text-xs text-slate-400 italic text-center pt-1"></p>
+      </div>
+
+    </div>
+
+    <!-- Footer Call to Actions -->
+    <div class="p-5 border-t border-gold/10 bg-[#05020c] shrink-0 flex gap-3">
+      <button onclick="window.closeMatchDetailsModal()" class="flex-1 py-3 bg-black/40 border border-gold/15 rounded-xl font-bold uppercase text-slate-300 hover:text-white text-xs transition-all">
+        Close
+      </button>
+      <div id="md-popup-join-btn-container" class="flex-1"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Winner Split Floating Micro-Popup -->
+<div id="winner-split-popup" class="fixed z-[100] hidden glass-luxury p-3.5 rounded-2xl border border-gold/30 shadow-[0_4px_25px_rgba(212,175,55,0.3)] text-xs font-grotesk w-52 transition-all duration-200 opacity-0 scale-95 pointer-events-none">
+  <div id="winner-split-content" class="space-y-1.5">
+    <!-- Dynamic Content -->
+  </div>
+</div>
+
+<script type="module">
+  import './utils.js';
+  import './firebase.js';
+  import './auth.js';
+</script>
+</body>
+</html>
+<!-- --- END OF FILE index.html --- -->

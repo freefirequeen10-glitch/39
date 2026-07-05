@@ -1,0 +1,449 @@
+/* --- START OF FILE user.css --- */
+
+body {
+  background: radial-gradient(circle at top, #0d061e 0%, #030107 100%);
+  color: #f7f5fa;
+  overflow-x: hidden;
+  transition: background 0.3s ease;
+}
+
+.glass-luxury {
+  background: rgba(12, 7, 26, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+.glass-luxury:hover {
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.glass-auth {
+  background: rgba(18, 0, 31, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 193, 7, 0.3);
+  box-shadow: 0 0 45px rgba(138, 43, 226, 0.25), inset 0 0 25px rgba(255, 193, 7, 0.05);
+}
+
+.glow-gold-btn {
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glow-gold-btn:hover {
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.45);
+  transform: translateY(-1px);
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #f1e2b3 0%, #d4af37 50%, #b8921e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(5, 2, 12, 0.5);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.3);
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.6);
+}
+
+.fade-in {
+  animation: fadeIn 0.35s ease-out forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.skeleton-wave {
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.04) 25%, rgba(139, 92, 246, 0.1) 50%, rgba(212, 175, 55, 0.04) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-wave-anim 1.6s infinite;
+}
+@keyframes skeleton-wave-anim {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.match-card-premium .neon-edge {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.4), rgba(139,92,246,0.3), rgba(212,175,55,0.4), transparent);
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+.match-card-premium:hover .neon-edge {
+  opacity: 1;
+}
+
+.stat-divider-v {
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(212,175,55,0.18), transparent);
+  align-self: stretch;
+  margin: 4px 0;
+}
+
+.matches-count-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  background: rgba(212,175,55,0.08);
+  border: 1px solid rgba(212,175,55,0.18);
+  border-radius: 100px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(212,175,55,0.8);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+img[src=""] {
+  display: none;
+}
+
+.battles-hero {
+  background: linear-gradient(135deg, #0a041a 0%, #0f0624 40%, #080218 100%);
+  border: 1px solid rgba(139,92,246,0.2);
+  border-radius: 28px;
+  position: relative;
+  overflow: hidden;
+  padding: 24px 20px;
+  min-height: 170px;
+}
+.battles-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 80% 50%, rgba(139,92,246,0.2) 0%, transparent 70%),
+             radial-gradient(ellipse 50% 60% at 10% 80%, rgba(212,175,55,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+.battles-hero::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.8), rgba(139,92,246,0.6), rgba(212,175,55,0.8), transparent);
+  animation: heroLineShimmer 3s infinite;
+}
+@keyframes heroLineShimmer {
+  0%   { opacity: 0.4; background-position: -200% center; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.4; background-position: 200% center; }
+}
+
+.hero-trophy-glow {
+  filter: drop-shadow(0 0 24px rgba(212,175,55,0.7)) drop-shadow(0 0 8px rgba(255,255,255,0.2));
+  animation: trophyPulse 2.5s ease-in-out infinite;
+}
+@keyframes trophyPulse {
+  0%, 100% { transform: scale(1) translateY(0); filter: drop-shadow(0 0 20px rgba(212,175,55,0.6)); }
+  50% { transform: scale(1.06) translateY(-3px); filter: drop-shadow(0 0 36px rgba(212,175,55,0.9)); }
+}
+
+.battles-hero-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 7vw, 3rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #f1e2b3 0%, #d4af37 40%, #fff8dc 65%, #b8921e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.05;
+}
+
+.battles-hero-subtitle {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(139,92,246,0.9);
+  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+  margin-top: 5px;
+}
+
+.live-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34,197,94,0.6);
+  animation: liveDotPulse 1.4s ease-out infinite;
+  display: inline-block;
+  flex-shrink: 0;
+}
+@keyframes liveDotPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(34,197,94,0.7); }
+  70%  { box-shadow: 0 0 0 8px rgba(34,197,94,0); }
+  100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+}
+
+.battles-filter-bar {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+  width: 100%;
+}
+@media (max-width: 480px) {
+  .battles-filter-bar {
+    gap: 4px;
+  }
+}
+
+.filter-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 2px;
+  border-radius: 12px;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-family: 'Space Grotesk', sans-serif;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid rgba(139,92,246,0.25);
+  background: rgba(12,7,26,0.6);
+  color: rgba(148,163,184,0.9);
+  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.filter-pill i {
+  font-size: 8px;
+}
+.filter-pill:hover:not(.pill-active) {
+  border-color: rgba(139,92,246,0.6);
+  color: #fff;
+}
+@media (min-width: 400px) {
+  .filter-pill {
+    font-size: 9px;
+    gap: 5px;
+    padding: 8px 4px;
+  }
+  .filter-pill i {
+    font-size: 9px;
+  }
+}
+@media (min-width: 640px) {
+  .filter-pill {
+    font-size: 11px;
+    gap: 6px;
+    padding: 10px 14px;
+    border-radius: 14px;
+  }
+  .filter-pill i {
+    font-size: 11px;
+  }
+}
+
+.pill-active {
+  background: rgba(212, 175, 55, 0.1) !important;
+  border-color: rgba(212, 175, 55, 0.8) !important;
+  color: #d4af37 !important;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.45);
+  transform: scale(1.03) translateY(-1px);
+}
+.pill-live.pill-active {
+  background: rgba(34, 197, 94, 0.1) !important;
+  border-color: rgba(34, 197, 94, 0.8) !important;
+  color: #22c55e !important;
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.5);
+}
+.pill-upcoming.pill-active {
+  background: rgba(212, 175, 55, 0.1) !important;
+  border-color: rgba(212, 175, 55, 0.8) !important;
+  color: #d4af37 !important;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+}
+.pill-completed.pill-active {
+  background: rgba(107, 114, 128, 0.1) !important;
+  border-color: rgba(107, 114, 128, 0.8) !important;
+  color: #9ca3af !important;
+  box-shadow: 0 0 12px rgba(107, 114, 128, 0.35);
+}
+.pill-cancelled.pill-active {
+  background: rgba(239, 68, 68, 0.1) !important;
+  border-color: rgba(239, 68, 68, 0.8) !important;
+  color: #ef4444 !important;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+}
+
+/* Premium Match Card - Independent styling configurations */
+.match-card-premium {
+  background: linear-gradient(135deg, rgba(15, 8, 30, 0.95) 0%, rgba(5, 2, 12, 0.98) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1.5px solid rgba(139, 92, 246, 0.25);
+  border-radius: 32px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.8), 
+              inset 0 0 15px rgba(139, 92, 246, 0.1), 
+              inset 0 0 10px rgba(212, 175, 55, 0.05);
+  min-height: 325px;
+  max-height: none;
+}
+.match-card-premium:hover {
+  border-color: rgba(212, 175, 55, 0.75);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9), 
+              0 0 35px rgba(139, 92, 246, 0.45), 
+              0 0 20px rgba(212, 175, 55, 0.3), 
+              inset 0 0 25px rgba(212, 175, 55, 0.15);
+  transform: translateY(-6px);
+}
+
+/* Premium Banner configuration - Background image fully visible, no dark overlays */
+.match-card-banner {
+  position: relative;
+  width: 100%;
+  height: 115px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #05020c;
+}
+.match-card-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+/* Completely disables bottom banner dark overlay to keep backgrounds fully visible */
+.match-card-banner .banner-overlay,
+.match-card-banner .absolute.bottom-0 {
+  display: none !important;
+}
+
+.banner-skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.04) 25%, rgba(139, 92, 246, 0.1) 50%, rgba(212, 175, 55, 0.04) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-wave-anim 1.6s infinite;
+  z-index: 2;
+}
+
+.status-badge {
+  position: absolute;
+  top: 10px; right: 10px;
+  z-index: 20;
+  padding: 5px 12px;
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: 'Space Grotesk', sans-serif;
+  display: flex; align-items: center; gap: 5px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.status-badge.badge-live {
+  background: rgba(21,128,61,0.9);
+  border: 1px solid rgba(34,197,94,0.7);
+  color: #86efac;
+}
+.status-badge.badge-upcoming {
+  background: rgba(184,146,30,0.9);
+  border: 1px solid rgba(212,175,55,0.7);
+  color: #fff3cc;
+}
+.status-badge.badge-completed {
+  background: rgba(30,30,40,0.92);
+  border: 1px solid rgba(107,114,128,0.5);
+  color: #9ca3af;
+}
+.status-badge.badge-cancelled {
+  background: rgba(127,29,29,0.9);
+  border: 1px solid rgba(239,68,68,0.6);
+  color: #fca5a5;
+}
+
+.mode-badge {
+  position: absolute;
+  top: 10px; left: 10px;
+  z-index: 20;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-family: 'Rajdhani', sans-serif;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.7);
+}
+
+.match-card-body {
+  padding: 12px 14px 8px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.progress-bar-wrap {
+  width: 100%;
+  height: 5px;
+  background: rgba(0,0,0,0.55);
+  border-radius: 100px;
+  overflow: hidden;
+  border: 1px solid rgba(139,92,246,0.1);
+}
+
+.btn-join {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 900;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.25,0.46,0.45,0.94);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Match details modal active configurations */
+#match-details-modal {
+  transition: opacity 0.30s ease-in-out, pointer-events 0.30s ease-in-out;
+}
+#match-details-modal.modal-active {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+#match-details-modal.modal-active > div {
+  transform: scale(1) !important;
+}
+
+/* --- END OF FILE user.css --- */
